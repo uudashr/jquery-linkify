@@ -10,7 +10,7 @@ Include the plugin script
 <script src="jquery.linkify.js" type="text/javascript"></script>
 ```
 
-``` html
+``` js
 $("#content").linkify();
 ```
   
