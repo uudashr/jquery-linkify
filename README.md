@@ -13,7 +13,7 @@ Include the plugin script
 
 <pre>
 $("#content").linkify();
-<pre>
+</pre>
   
 or to enable the hashtag link
 
