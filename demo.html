@@ -18,7 +18,9 @@
       $("form input[type='submit']").click(function() {
         str = this.form.content.value
         $("#content").html(str);
-        $("#content").linkify(toHashtagUrl);
+        $("#content").linkify({
+          hashtagUrlBuilder: toHashtagUrl
+        });
         return false;
       });
     });
@@ -27,7 +29,7 @@
 <body>
   <h1>Linkify jQuery Plugin Demo</h1>
   <form>
-      <textarea name="content">Go to http://www.youtube.com to watch the #movie</textarea>
+      <textarea name="content">Go to http://www.youtube.com or www.vimeo.com to watch the #movie</textarea>
       <div>
         <input type="submit" value="Apply"/>
       </div>

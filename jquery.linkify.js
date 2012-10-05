@@ -7,9 +7,13 @@ function linkify(string, buildHashtagUrl) {
 }
 
 (function($) {
-  $.fn.linkify = function(buildHashtagUrl) {
+  $.fn.linkify = function(opts) {
     return this.each(function() {
       var $this = $(this);
+      var buildHashtagUrl;
+      if (opts && opts.hashtagUrlBuilder) {
+        buildHashtagUrl = opts.hashtagUrlBuilder;
+      }
       $this.html(linkify($this.html(), buildHashtagUrl));
     });
   }
