@@ -11,8 +11,12 @@ function linkify(string, buildHashtagUrl) {
     return this.each(function() {
       var $this = $(this);
       var buildHashtagUrl;
-      if (opts && opts.hashtagUrlBuilder) {
-        buildHashtagUrl = opts.hashtagUrlBuilder;
+      if (opts) {
+        if (typeof opts  == "function") {
+          buildHashtagUrl = opts;
+        } else if (typeof opts.hashtagUrlBuilder == "function") {
+          buildHashtagUrl = opts.hashtagUrlBuilder;
+        }
       }
       $this.html(linkify($this.html(), buildHashtagUrl));
     });

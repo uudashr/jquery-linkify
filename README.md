@@ -23,3 +23,14 @@ function toHashtagUrl(hashtag) {
 
 $("#content-with-hashtag").linkify(toHashtagUrl);
 ```
+
+or 
+``` js
+function toHashtagUrl(hashtag) {
+  return "http://myservice.com?q=" + hashtag;
+}
+
+$("#content-with-hashtag").linkify({
+	hashtagUrlBuilder: toHashtagUrl
+});
+```
