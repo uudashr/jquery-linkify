@@ -24,13 +24,15 @@ function toHashtagUrl(hashtag) {
 $("#content-with-hashtag").linkify(toHashtagUrl);
 ```
 
-or 
+or if you want to disable the URL that does't include http
+
 ``` js
 function toHashtagUrl(hashtag) {
   return "http://myservice.com?q=" + hashtag;
 }
 
 $("#content-with-hashtag").linkify({
-	hashtagUrlBuilder: toHashtagUrl
+	hashtagUrlBuilder: toHashtagUrl, 
+	includeW3: false
 });
 ```
