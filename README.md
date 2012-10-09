@@ -36,3 +36,11 @@ $("#content-with-hashtag").linkify({
 	includeW3: false
 });
 ```
+
+or to specify the target for links
+
+``` js
+$("#content").linkify({
+	target: "_blank"
+});
+```
