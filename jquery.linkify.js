@@ -40,7 +40,18 @@ function linkify(string, buildHashtagUrl, includeW3, target) {
           }
         }
       }
-      $this.html(linkify($this.html(), buildHashtagUrl, includeW3, target));
+      $this.html(
+          $.map(
+            $this.contents(),
+            function(n, i) {
+                if (n.nodeType == 3) {
+                    return linkify(n.data, buildHashtagUrl, includeW3, target);
+                } else {
+                    return n.outerHTML;
+                }
+            }
+        ).join("")
+      );
     });
   }
 })(jQuery);
