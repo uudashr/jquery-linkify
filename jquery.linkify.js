@@ -9,11 +9,11 @@ function linkify(string, buildHashtagUrl, includeW3, target) {
     } else {
       uri = captured;
     }
-    return "<a href=\"" + uri+ "\" target=\"" + target + "\">" + captured + "</a>";;
+    return "<a href=\"" + uri+ "\" target=\"" + target + "\" rel=\"nofollow\">" + captured + "</a>";;
   });
   
   if (buildHashtagUrl) {
-    string = string.replace(/\B#(\w+)/g, "<a href=" + buildHashtagUrl("$1") +" target=\"" + target + "\">#$1</a>");
+    string = string.replace(/\B#(\w+)/g, "<a href=" + buildHashtagUrl("$1") +" target=\"" + target + "\" rel=\"nofollow\">#$1</a>");
   }
   return string;
 }
