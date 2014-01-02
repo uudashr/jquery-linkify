@@ -18,7 +18,7 @@
       $("form input[type='submit']").click(function() {
         str = this.form.content.value
         $("#content").html(str);
-        $("#content").linkify(toHashtagUrl);
+        $("#content").linkify({hashtagUrlBuilder: toHashtagUrl, noFollow: false});
         return false;
       });
     });
