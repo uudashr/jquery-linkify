@@ -3,20 +3,20 @@ function linkify(string, buildHashtagUrl, includeW3, target, noFollow) {
   if (noFollow) {
     relNoFollow = " rel=\"nofollow\"";
   }
-  
-  string = string.replace(/((http|https|ftp)\:\/\/|\bw{3}\.)[a-z0-9\-\.]+\.[a-z]{2,3}(:[a-z0-9]*)?\/?([a-z\u00C0-\u017F0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~])*/gi, function(captured) {
+
+  string = function() {
     var uri;
-    if (captured.toLowerCase().indexOf("www.") == 0) {
+    if (string.toLowerCase().indexOf("www.") !== -1) {
       if (!includeW3) {
-        return captured;
+        return string;
       }
-      uri = "http://" + captured;
+      uri = "http://" + string;
     } else {
-      uri = captured;
+      uri = string;
     }
-    return "<a href=\"" + uri+ "\" target=\"" + target + "\"" + relNoFollow + ">" + captured + "</a>";
-  });
-  
+    return "<a href=\"" + uri+ "\" target=\"" + target + "\"" + relNoFollow + ">" + string + "</a>";
+  }();
+
   if (buildHashtagUrl) {
     string = string.replace(/\B#(\w+)/g, "<a href=" + buildHashtagUrl("$1") +" target=\"" + target + "\"" + relNoFollow + ">#$1</a>");
   }
@@ -26,11 +26,17 @@ function linkify(string, buildHashtagUrl, includeW3, target, noFollow) {
 (function($) {
   $.fn.linkify = function(opts) {
     return this.each(function() {
-      var $this = $(this);
       var buildHashtagUrl;
       var includeW3 = true;
       var target = '_self';
       var noFollow = true;
+      var regex = /((http|https|ftp)\:\/\/|\bw{3}\.)[a-z0-9\-\.]+\.[a-z]{2,3}(:[a-z0-9]*)?\/?([a-z\u00C0-\u017F0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~])*/gi;
+      var txt = this.innerHTML;
+      var output = '';
+      var replacement;
+      var matchLen;
+      var lastIndex = 0;
+
       if (opts) {
         if (typeof opts  == "function") {
           buildHashtagUrl = opts;
@@ -49,18 +55,20 @@ function linkify(string, buildHashtagUrl, includeW3, target, noFollow) {
           }
         }
       }
-      $this.html(
-          $.map(
-            $this.contents(),
-            function(n, i) {
-                if (n.nodeType == 3) {
-                    return linkify(n.data, buildHashtagUrl, includeW3, target, noFollow);
-                } else {
-                    return n.outerHTML;
-                }
-            }
-        ).join("")
-      );
+
+      while ((match = regex.exec(txt)) !== null) {
+        matchLen = match[0].length;
+        replacement = linkify(match[0], buildHashtagUrl, includeW3, target, noFollow);
+        output += txt.substring(lastIndex, match.index + matchLen).replace(match[0], replacement);
+        lastIndex = match.index + matchLen;
+      }
+
+      // Include the rest of the text.
+      if (lastIndex !== txt.length) {
+        output += txt.substring(lastIndex);
+      }
+
+      $(this).html(output);
     });
-  }
+  };
 })(jQuery);
