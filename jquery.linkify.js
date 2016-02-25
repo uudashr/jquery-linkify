@@ -6,7 +6,7 @@ function linkify(string, buildHashtagUrl, includeW3, target, noFollow) {
 
   string = function() {
     var uri;
-    if (string.toLowerCase().indexOf("www.") !== -1) {
+    if (string.toLowerCase().indexOf("www.") === 0) {
       if (!includeW3) {
         return string;
       }
