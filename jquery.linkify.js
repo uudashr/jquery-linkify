@@ -4,21 +4,14 @@ function linkify(string, buildHashtagUrl, includeW3, target, noFollow) {
     relNoFollow = " rel=\"nofollow\"";
   }
 
-  string = function() {
-    var uri;
-    if (string.toLowerCase().indexOf("www.") === 0) {
-      if (!includeW3) {
-        return string;
-      }
-      uri = "http://" + string;
-    } else {
-      uri = string;
-    }
-    return "<a href=\"" + uri+ "\" target=\"" + target + "\"" + relNoFollow + ">" + string + "</a>";
-  }();
+  if (string.toLowerCase().indexOf("www.") === 0 && includeW3) {
+    string = '<a href="http://' + string + '" target="' + target + '"' + relNoFollow + '>' + string + '</a>';
+  } else {
+    string = '<a href="' + string + '" target="' + target + '"' + relNoFollow + '>' + string + '</a>';
+  }
 
   if (buildHashtagUrl) {
-    string = string.replace(/\B#(\w+)/g, "<a href=" + buildHashtagUrl("$1") +" target=\"" + target + "\"" + relNoFollow + ">#$1</a>");
+    string = string.replace(/\B#(\w+)/g, '<a href=' + buildHashtagUrl("$1") + ' target="' + target + '"' + relNoFollow + '>#$1</a>');
   }
   return string;
 }
