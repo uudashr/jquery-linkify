@@ -2,7 +2,7 @@
 
 Linkify is jQuery plugin to formatting the text that contains URL or hashtag into a clickable HTML content.
 
-It's small, it has no test suite but handles the large majority of cases, with exceptions (e.g. detecting modern TLDs like .museum properly, or punctuation at the end of the URL). For advanced options, check out the origianl [linkify](https://github.com/cowboy/javascript-linkify) or the [urlize](https://github.com/ljosa/urlize.js) library.
+It's small, it has no test suite but handles the large majority of cases, with exceptions (e.g. detecting modern TLDs like .museum properly, or punctuation at the end of the URL). For advanced options, check out the [linkify](https://github.com/cowboy/javascript-linkify) or the [urlize](https://github.com/ljosa/urlize.js) library.
 
 ## Usage
 
